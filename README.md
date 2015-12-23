@@ -1,10 +1,10 @@
 # Todo
 
-A Todo web app built for understanding the RESTful services. Built on Node.JS server.
+A Todo web app built for understanding the RESTful services. Built on Node.JS Express server, and authentication will be done using passport.js
 
 ### TO-Do for this todo-app TODOception ;) : 
 
-- [ ] Choose a suitable DB for my app.
+- [x] Choose a suitable DB for my app. *MongoDB* will be used.
 
 - [ ] Create a signup/signin page
 	
@@ -28,4 +28,4 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS se
 		- [ ] Close : Means item is closed.
 		- [ ] Push to tomorrow : Will extends the deadline by 1 day.
 
-- [ ] Host it on a webserver.
+-[ ] Host it on a webserver.
