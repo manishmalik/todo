@@ -28,4 +28,4 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS se
 		- [ ] Close : Means item is closed.
 		- [ ] Push to tomorrow : Will extends the deadline by 1 day.
 
--[ ] Host it on a webserver.
+- [ ] Host it on a webserver.
