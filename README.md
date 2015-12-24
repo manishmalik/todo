@@ -6,12 +6,14 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 
 - [x] Choose a suitable DB for my app. *MongoDB* will be used.
 
-- [ ] Create a signup/signin page
+- [x] Create a signup/signin page
 	
-	- [ ] Simple email & password login
-	- [ ] Using OAuth service to login with G+ and FB
+	- [x] Simple email & password login
+	- [x] Using OAuth service to login with G+ and FB
 
 - [ ] Create the Todo dashboard
+	
+	- [ ] Create TODO Schema
 	
 	- [ ] Add a date and time picker api : [bootstrap-datetimepicker](https://tarruda.github.io/bootstrap-datetimepicker/)
 	
