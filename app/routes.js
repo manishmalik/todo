@@ -2,6 +2,8 @@ module.exports = function(app, passport) {
 
 // normal routes ===============================================================
 
+    var todo = require('./models/todo');
+
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
         res.render('index.ejs');
@@ -9,9 +11,50 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {
-            user : req.user
+        
+        todo.find({user: req.user}, function(err, todos){
+            res.render('profile.ejs', {
+                user : req.user,
+                todo : todos
+            });
+        }); 
+        
+    });
+    /*
+        Handler to add a new todo in the list
+    */
+    app.post('/add',isLoggedIn, function(req, res){
+        var newTodo = new todo();
+        newTodo.task = req.headers.task;
+        newTodo.targetDate = req.headers.targetDate;
+        newTodo.location = req.headers.location;
+        newTodo.user  = req.user;
+        newTodo.save(function(err){
+            if(err)
+                res.json(err);
+            else
+                res.send('success');
         });
+    });
+    /*
+        Handler to delete a ToDo on request by the user
+        TODO:
+            Fix, vague delete. A case when a loggedin user can delete someone else's todo by knowing it's object
+            id, which is not very difficult to get (simply the value of attribut 'value').
+    */
+    app.post('/delete',isLoggedIn, function(req, res){
+        console.log(req.body.data);
+        for(var i=0;i<req.body.data.length;i++){
+            todo.find({_id:req.body.data[i]},function(err,todos){
+                // console.log("User from todo : "+todos[0].user+"Type of : "+typeof todos[0].user);
+                // console.log("User from Req : "+req.user._id+"Type of : "+typeof req.user._id);
+                // if(todos[0].user===req.user._id)
+                //     console.log("Authorize user !");
+                if(err)
+                    res.json(err);
+            }).remove().exec();
+        }
+        res.redirect('success');
     });
 
     // LOGOUT ==============================
@@ -115,40 +158,40 @@ module.exports = function(app, passport) {
                 failureRedirect : '/'
             }));
 
-// =============================================================================
-// UNLINK ACCOUNTS =============================================================
-// =============================================================================
-// used to unlink accounts. for social accounts, just remove the token
-// for local account, remove email and password
-// user account will stay active in case they want to reconnect in the future
+// // =============================================================================
+// // UNLINK ACCOUNTS =============================================================
+// // =============================================================================
+// // used to unlink accounts. for social accounts, just remove the token
+// // for local account, remove email and password
+// // user account will stay active in case they want to reconnect in the future
 
-    // local -----------------------------------
-    app.get('/unlink/local', isLoggedIn, function(req, res) {
-        var user            = req.user;
-        user.local.email    = undefined;
-        user.local.password = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
+//     // local -----------------------------------
+//     app.get('/unlink/local', isLoggedIn, function(req, res) {
+//         var user            = req.user;
+//         user.local.email    = undefined;
+//         user.local.password = undefined;
+//         user.save(function(err) {
+//             res.redirect('/profile');
+//         });
+//     });
 
-    // facebook -------------------------------
-    app.get('/unlink/facebook', isLoggedIn, function(req, res) {
-        var user            = req.user;
-        user.facebook.token = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
+//     // facebook -------------------------------
+//     app.get('/unlink/facebook', isLoggedIn, function(req, res) {
+//         var user            = req.user;
+//         user.facebook.token = undefined;
+//         user.save(function(err) {
+//             res.redirect('/profile');
+//         });
+//     });
 
-    // google ---------------------------------
-    app.get('/unlink/google', isLoggedIn, function(req, res) {
-        var user          = req.user;
-        user.google.token = undefined;
-        user.save(function(err) {
-            res.redirect('/profile');
-        });
-    });
+//     // google ---------------------------------
+//     app.get('/unlink/google', isLoggedIn, function(req, res) {
+//         var user          = req.user;
+//         user.google.token = undefined;
+//         user.save(function(err) {
+//             res.redirect('/profile');
+//         });
+//     });
 
 
 };
