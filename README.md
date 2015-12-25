@@ -40,3 +40,5 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 - [ ] Add the Pagination in the ToDo Display (In the case of large number of todo(s) in the list)
 
 - [ ] Add some media queries to make a responsive design
+
+- [ ] Add the JS validations
