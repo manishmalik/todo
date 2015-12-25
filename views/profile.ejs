@@ -26,7 +26,7 @@
             <h1><span class="glyphicon glyphicon-list"></span> TODO :</h1>
             <div class="row">
                 <div class="col-sm-10">
-                    <h4 class="text-center">Welcome <strong><%= user.name %></strong> !</h4>
+                    <h3 class="text-left">Welcome <strong><%= user.name %></strong> !</h3>
                 </div>
                 <div class="col-sm-2">
                     <a href="/logout" class="btn btn-default btn-lg btn-block">Logout</a>
@@ -90,7 +90,7 @@
                             <tbody id="checkbox-todo">
                                 <% for(var i=0;i<todo.length;i++) {%>
                                     <% if(!todo[i].isCompleted) {%>
-                                        <tr>
+                                        <tr id="<%=todo[i]._id%>">
                                             <td><%= todo[i].task %></td>
                                             <td><%= todo[i].targetDate%></td>
                                             <td><%= todo[i].location%></td>
