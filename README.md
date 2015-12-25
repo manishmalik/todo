@@ -11,7 +11,7 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 	- [x] Simple email & password login
 	- [x] Using OAuth service to login with G+ and FB
 
-- [ ] Create the Todo dashboard
+- [x] Create the Todo dashboard
 	
 	- [x] Create TODO Schema
 
@@ -23,6 +23,9 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 		- [x] ~~Store the location lat. and long. in the DB~~ Instead Storing the location/Place name in DB
 
 	- [x] Show the current todo(s)
+
+- [ ] Fix the date & time insertion issue
+		- It's difficult to insert the date/time into the mongodb. For that matter I will be using moment.js, which basically handles most of the issues related to time format conversions. But still needs some fix.
 
 - [ ] Sending email notification as the due time arrives
 	- [ ] Current plan is to use mailgun-js for this purpose
