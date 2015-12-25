@@ -1,17 +1,18 @@
 $(document).ready(function(){
 		var geocoder = new google.maps.Geocoder();
+		var location;
 
-	            function geocodePosition(pos) {
-	              geocoder.geocode({
-	                latLng: pos
-	            }, function(responses) {
-	                if (responses && responses.length > 0) {
-	                  console.log(responses[0].formatted_address);
-	              } else {
-	                  updateMarkerAddress('Cannot determine address at this location.');
-	              }
-	          });
-	          }
+	    function geocodePosition(pos) {
+	    	geocoder.geocode({
+	            latLng: pos
+	        }, function(responses) {
+	            if (responses && responses.length > 0) {
+	                location = responses[0].formatted_address;
+	        	} else {
+	            	updateMarkerAddress('Cannot determine address at this location.');
+	            }
+	        });
+	    }
 
 	          // function updateMarkerStatus(str) {
 	          //     document.getElementById('markerStatus').innerHTML = str;
@@ -27,27 +28,26 @@ $(document).ready(function(){
 	          // function updateMarkerAddress(str) {
 	          //     document.getElementById('address').innerHTML = str;
 	          // }
-
-	          function initialize() {
+	    
+	    function initialize() {
 	        
-	              var latLng = new google.maps.LatLng(28.6100, 77.2300);
+	        var latLng = new google.maps.LatLng(28.6100, 77.2300);
 	              
-	              var map = new google.maps.Map(document.getElementById('map'), {
-	                zoom: 12,
-	                center: latLng,
-	                mapTypeId: google.maps.MapTypeId.ROADMAP
-	            });
-	              var marker = new google.maps.Marker({
-	                position: latLng,
-	                title: 'Current',
-	                map: map,
-	                draggable: true
-	            });
+	        var map = new google.maps.Map(document.getElementById('map'), {
+	            zoom: 12,
+	            center: latLng,
+	            mapTypeId: google.maps.MapTypeId.ROADMAP
+	        });
+	        var marker = new google.maps.Marker({
+	            position: latLng,
+	            title: 'Current',
+	            map: map,
+	            draggable: true
+	        });
 	               
 	      // // Update current position info.
 	      // updateMarkerPosition(latLng);
-	            geocodePosition(latLng);
-	      
+	        geocodePosition(latLng);
 	      // Add dragging event listeners.
 	    //   google.maps.event.addListener(marker, 'dragstart', function() {
 	    //     updateMarkerAddress('Dragging...');
@@ -59,16 +59,58 @@ $(document).ready(function(){
 	    // });
 	      
 	      google.maps.event.addListener(marker, 'dragend', function() {
-	        console.log('Drag ended');
-	        console.log([marker.getPosition().lat(),marker.getPosition().lng()].join(', '));
+	        // console.log('Drag ended');
+	        // console.log([marker.getPosition().lat(),marker.getPosition().lng()].join(', '));
 	        geocodePosition(marker.getPosition());
-	    });
+	      });
 	}
 
 	// Onload handler to fire off the app.
 	google.maps.event.addDomListener(window, 'load', initialize);
 	
-	$('*[name=date]').appendDtpicker();
+	$('*[name=date]').appendDtpicker({"dateFormat": "YYYY-MM-DD hh:mm"});
 
-	console.log("Welcome Script!");
+	$('#submit').on('click',function(){
+		if($('#input-task').val().length===0){
+			$('#input-task').css({ "border": '#FF0000 1px solid'});
+			console.log("error");
+			return;
+		}
+		console.log("Task : ",$('#input-task').val());
+		console.log(location);
+		console.log("Date: ",moment($('#input-targetDate').val())._d);
+		$.ajax({
+				type: 'POST',
+				url: '/add',
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('task', $('#input-task').val());
+					xhr.setRequestHeader('targetDate', moment($('#input-targetDate').val())._d);
+					xhr.setRequestHeader('location', location);
+				},
+				error: function() {
+					console.log('Cannot add to the to-do db');
+				},
+				success: function(data) {
+					console.log('Added successfully',data);
+				}
+		});
+	});
+	$('#update').on('click',function(){
+		var selected = [];
+		$('#checkbox-todo input:checked').each(function() {
+    		selected.push($(this).attr('value'));
+		});
+		console.log(selected);
+		$.ajax({
+				data: {data: selected},
+				type: 'POST',
+				url: '/delete',
+				error: function() {
+					console.log('Cannot delete to the to-do db');
+				},
+				success: function(data) {
+					console.log('Deleted successfully',data);
+				}
+		});
+	});
 });
