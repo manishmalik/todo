@@ -76,9 +76,9 @@ $(document).ready(function(){
 			console.log("error");
 			return;
 		}
-		console.log("Task : ",$('#input-task').val());
-		console.log(location);
-		console.log("Date: ",moment($('#input-targetDate').val())._d);
+		// console.log("Task : ",$('#input-task').val());
+		// console.log(location);
+		// console.log("Date: ",moment($('#input-targetDate').val())._d);
 		$.ajax({
 				type: 'POST',
 				url: '/add',
@@ -92,6 +92,7 @@ $(document).ready(function(){
 				},
 				success: function(data) {
 					console.log('Added successfully',data);
+					$('#input-task').val('');
 				}
 		});
 	});
@@ -99,6 +100,7 @@ $(document).ready(function(){
 		var selected = [];
 		$('#checkbox-todo input:checked').each(function() {
     		selected.push($(this).attr('value'));
+    		$('#'+$(this).attr('value')).remove();
 		});
 		console.log(selected);
 		$.ajax({
