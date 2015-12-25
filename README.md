@@ -13,14 +13,14 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 
 - [ ] Create the Todo dashboard
 	
-	- [ ] Create TODO Schema
-	
-	- [ ] Add a date and time picker api : [bootstrap-datetimepicker](https://tarruda.github.io/bootstrap-datetimepicker/)
+	- [x] Create TODO Schema
+
+	- [x] Add a date and time picker api : [bootstrap-datetimepicker](https://tarruda.github.io/bootstrap-datetimepicker/)
 	
 	- [ ] Use Gmaps to select the locations
-		- [ ] Choose the current location by default
-		- [ ] Store the location lat. and long. in the DB
-		- [ ] Reverse Geo-coding for getting place info
+		- [x] Choose the current location by default **But it depends whether browser allows/supports geolocation**
+		- [x] Reverse Geo-coding for getting place info
+		- [ ] ~~Store the location lat. and long. in the DB~~ Instead Storing the location/Place name in DB
 
 	- [ ] Show the current todo(s)
 
@@ -30,4 +30,10 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 		- [ ] Close : Means item is closed.
 		- [ ] Push to tomorrow : Will extends the deadline by 1 day.
 
--[ ] Host it on a webserver.
+- [ ] Host it on a webserver.
+
+###Advance Features to add: 
+
+- [ ] Add the Pagination in the ToDo Display (In the case of large number of todo(s) in the list)
+
+- [ ] Add some media queries to make a responsive design
