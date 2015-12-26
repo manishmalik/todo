@@ -2,6 +2,18 @@ $(document).ready(function(){
 		var geocoder = new google.maps.Geocoder();
 		var location;
 
+		currentPos={
+    		latitude:'28.6100',
+    		longitude:'77.2300'
+		};
+
+		if (navigator.geolocation){
+  			navigator.geolocation.getCurrentPosition(showPosition);
+		}
+		function showPosition(position){ 
+    		currentPos.latitude=position.coords.latitude;
+    		currentPos.longitude=position.coords.longitude;
+	    }
 	    function geocodePosition(pos) {
 	    	geocoder.geocode({
 	            latLng: pos
@@ -31,7 +43,7 @@ $(document).ready(function(){
 	    
 	    function initialize() {
 	        
-	        var latLng = new google.maps.LatLng(28.6100, 77.2300);
+	        var latLng = new google.maps.LatLng(currentPos.latitude, currentPos.longitude);
 	              
 	        var map = new google.maps.Map(document.getElementById('map'), {
 	            zoom: 12,
