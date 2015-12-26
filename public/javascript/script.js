@@ -84,7 +84,7 @@ $(document).ready(function(){
 				url: '/add',
 				beforeSend: function (xhr) {
 					xhr.setRequestHeader('task', $('#input-task').val());
-					xhr.setRequestHeader('targetDate', moment($('#input-targetDate').val())._d);
+					xhr.setRequestHeader('targetdate', $('#input-targetDate').val());
 					xhr.setRequestHeader('location', location);
 				},
 				error: function() {
