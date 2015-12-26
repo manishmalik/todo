@@ -1,8 +1,11 @@
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
-
+    //access todo model
     var todo = require('./models/todo');
+
+    //For displaying time 
+    var moment = require('moment');
 
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
@@ -13,6 +16,10 @@ module.exports = function(app, passport) {
     app.get('/profile', isLoggedIn, function(req, res) {
         
         todo.find({user: req.user}, function(err, todos){
+            todos.sort({targetDate:1})
+            for(var i=0;i<todos.length;i++){
+                todos[i].targetDate = moment(todos[i].targetDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            }
             res.render('profile.ejs', {
                 user : req.user,
                 todo : todos
@@ -26,7 +33,8 @@ module.exports = function(app, passport) {
     app.post('/add',isLoggedIn, function(req, res){
         var newTodo = new todo();
         newTodo.task = req.headers.task;
-        newTodo.targetDate = req.headers.targetdate;
+        newTodo.targetDate = new Date(Date.parse(req.headers.targetdate)).toISOString();
+        // console.log("Date: "+newTodo.targetDate +" type :"+typeof(newTodo.targetDate));
         newTodo.location = req.headers.location;
         newTodo.user  = req.user;
         newTodo.save(function(err){
@@ -54,7 +62,7 @@ module.exports = function(app, passport) {
                     res.json(err);
             }).remove().exec();
         }
-        res.redirect('success');
+        res.send('success');
     });
 
     // LOGOUT ==============================
