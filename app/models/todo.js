@@ -12,9 +12,7 @@ var todoSchema = mongoose.Schema({
         type            : mongoose.Schema.ObjectId,
         ref             :"User"
     },
-    targetDate          : {
-        type            : Date
-    },
+    targetDate          : String,
     location            : String,
     setDate             : {
         type            : Date,
