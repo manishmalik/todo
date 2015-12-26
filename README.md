@@ -24,7 +24,7 @@ A Todo web app built for understanding the RESTful services. Built on Node.JS Ex
 
 	- [x] Show the current todo(s)
 
-- [ ] Fix the date & time insertion issue
+- [x] Fix the date & time insertion issue
 		- It's difficult to insert the date/time into the mongodb. For that matter I will be using moment.js, which basically handles most of the issues related to time format conversions. But still needs some fix.
 
 - [ ] Sending email notification as the due time arrives

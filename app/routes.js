@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
     app.post('/add',isLoggedIn, function(req, res){
         var newTodo = new todo();
         newTodo.task = req.headers.task;
-        newTodo.targetDate = req.headers.targetDate;
+        newTodo.targetDate = req.headers.targetdate;
         newTodo.location = req.headers.location;
         newTodo.user  = req.user;
         newTodo.save(function(err){
