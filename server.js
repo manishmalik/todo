@@ -15,7 +15,7 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB = require('./config/database.js');
-
+var mailWorker = require('./mailer.js')
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
 
@@ -42,3 +42,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
+
+// worker ======================================================================
+setInterval(mailWorker.init, 5000);
+
