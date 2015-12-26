@@ -89,7 +89,6 @@
                             </thead>
                             <tbody id="checkbox-todo">
                                 <% for(var i=0;i<todo.length;i++) {%>
-                                    <% if(!todo[i].isCompleted) {%>
                                         <tr id="<%=todo[i]._id%>">
                                             <td><%= todo[i].task %></td>
                                             <td><%= todo[i].targetDate%></td>
@@ -102,7 +101,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    <%}%>
                                 <%}%>
                             </tbody>
                         </table>
