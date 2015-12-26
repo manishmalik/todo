@@ -61,7 +61,8 @@ object.init = function(){
 								else
 									emailadd = users[0].local.email;
 
-								var msg = 'Your task : '+'<b>'+data.task+'</b>'+' at <b>'+data.location+'</b> is expiring very soon. Its the time to respond to it : </br>'+'<ul>'+
+								var msg = 'Task : '+'<b>'+data.task+'</b>'+'<br/> Location : <b>'+data.location+'</b><br/> Due time : <b>'+moment(data.targetDate).format("dddd, MMMM Do YYYY, h:mm:ss a")+
+											'</b><br/> The above todo is expiring very soon. Its the time to respond to it : <br/>'+'<ul>'+
 											'<li><b>'+'To extend the deadline by one day click : <a href="'+'#'+'"> here </a></b></li>'+
 											'<li><b>'+'To close this task click : <a href="'+'#'+'"> here </a></b></li></ul>';
 								var mailOptions = {
