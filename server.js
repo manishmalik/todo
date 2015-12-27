@@ -44,5 +44,5 @@ app.listen(port);
 console.log('The magic happens on port ' + port);
 
 // worker ======================================================================
-setInterval(mailWorker.init, 5000);
+setInterval(mailWorker.init, 60000);
 
