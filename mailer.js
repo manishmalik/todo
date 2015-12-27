@@ -33,6 +33,7 @@ object.init = function(){
 				var tDate = moment(data.targetDate);
 				var cDate = moment(Date.now());
 				var diff = tDate.diff(cDate);
+				// console.log('For task: '+data.task+'\n'+'target Date :'+tDate.format("dddd, MMMM Do YYYY, h:mm:ss a")+'\n Current Date: '+cDate.format("dddd, MMMM Do YYYY, h:mm:ss a"));
 				if(diff<=900000){
 					// console.log(data.targetDate);
 					user.find({_id:data.user},function(err,users){
@@ -54,9 +55,10 @@ object.init = function(){
 								//console.log('Todo: Mail '+users[0].name+' about the expiration of the targetDate : '+moment(data.targetDate).format("dddd, MMMM Do YYYY, h:mm:ss a"));
 								// setup e-mail data with unicode symbols
 								var emailadd;
-								if(typeof users[0].google.email !== undefined && users[0].google.email.length>0)
+								// console.log('Compare ',users[0].google.email !== undefined);
+								if(users[0].google.email !== undefined && users[0].google.email.length>0)
 									emailadd = users[0].google.email;
-								else if(typeof users[0].facebook.email !== undefined && users[0].facebook.email.length>0)
+								else if(users[0].facebook.email !== undefined && users[0].facebook.email.length>0)
 									emailadd = users[0].facebook.email;
 								else
 									emailadd = users[0].local.email;
