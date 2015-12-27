@@ -37,11 +37,13 @@ module.exports = function(app, passport) {
         // console.log("Date: "+newTodo.targetDate +" type :"+typeof(newTodo.targetDate));
         newTodo.location = req.headers.location;
         newTodo.user  = req.user;
-        newTodo.save(function(err){
+        newTodo.save(function(err,data){
             if(err)
                 res.json(err);
-            else
-                res.send('success');
+            else{
+                data.targetDate = moment(data.targetDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
+                res.send(data);
+            }
         });
     });
     /*
@@ -51,7 +53,7 @@ module.exports = function(app, passport) {
             id, which is not very difficult to get (simply the value of attribut 'value').
     */
     app.post('/delete',isLoggedIn, function(req, res){
-        console.log(req.body.data);
+        //console.log(req.body.data);
         for(var i=0;i<req.body.data.length;i++){
             todo.find({_id:req.body.data[i]},function(err,todos){
                 // console.log("User from todo : "+todos[0].user+"Type of : "+typeof todos[0].user);

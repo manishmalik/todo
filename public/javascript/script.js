@@ -103,7 +103,12 @@ $(document).ready(function(){
 					console.log('Cannot add to the to-do db');
 				},
 				success: function(data) {
-					console.log('Added successfully',data);
+					// console.log('Added successfully',data);
+					var appendString = '<tr id="'+data._id+'"><td>'+data.task+'</td><td>'+data.targetDate+'</td>'+
+										'<td>'+data.location+'</td><td><div class="checkbox" align="center"><label>'+
+										'<input type="checkbox" id="blankCheckbox" value="'+data._id+'" aria-label="...">'+
+										'</label></div></td></tr>';
+					$('#checkbox-todo').append(appendString);
 					$('#input-task').val('');
 				}
 		});
