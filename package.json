@@ -1,6 +1,12 @@
 {
   "name": "todo-app",
   "main": "server.js",
+  "version": "0.0.1",
+  "description": "A todo web app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manishmalik/todo"
+  },
   "dependencies": {
     "express": "~4.0.0",
     "ejs": "~0.8.5",
